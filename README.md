@@ -51,16 +51,18 @@ Estimated value of Pi is 3.14250000000000000000
 
 NameNode (primary)
 * ssh
-* namenode
-* resourcemanager
 * zookeeper
+* namenode (hdfs)
+* resourcemanager (yarn)
 
 NameNode (secondary)
 * ssh
-* namenode
-* resourcemanager
 * zookeeper
+* namenode (hdfs)
+* resourcemanager (yarn)
 
 DataNode (1..3)
 * ssh
-
+* zookeeper
+* datanode (hdfs)
+* nodemanager (yarn)
