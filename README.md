@@ -1,7 +1,6 @@
-# Hadoop Multi-Node Cluster Playground
+# Hadoop Cluster Playground
 
-Yet another Hadoop Cluster playground. 
-Build on top of HDP v3.6.4.
+Yet another Hadoop Cluster playground (`HDP v3.6.4`).
 
 ```bash
 $ docker-compose build
