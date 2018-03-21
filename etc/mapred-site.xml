@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+
+    <property>
+        <name>mapreduce.framework.name</name>
+        <value>yarn</value>
+    </property>
+
+    <!--
+        For a 3 datanode setup, lower replication factor
+    -->
+    <property>
+        <name>mapreduce.client.submit.file.replication</name>
+        <value>2</value>
+    </property>
+
+</configuration>

@@ -1,0 +1,78 @@
+version: '2'
+services:
+  # #######################################
+  # primary namenode (namenode1)
+  # secondary namenode (namenode2)
+  #
+  namenode1:
+    build: .
+    hostname: namenode1
+    environment:
+      ZOOKEEPER_ID: 1
+    volumes:
+      - "./srv-namenode.cfg:/etc/supervisord.d/services.cfg:ro"
+      - "./init.d:/etc/hadoop/init.d:ro"
+      - "./etc:/etc/hadoop/conf:ro"
+      - "./environment.env:/etc/environment:ro"
+      - "namenode1:/storage"
+    ports:
+      - 8088:8088
+      - 50070:50070
+
+  namenode2:
+    build: .
+    hostname: namenode2
+    environment:
+      ZOOKEEPER_ID: 2
+    volumes:
+      - "./srv-secondarynamenode.cfg:/etc/supervisord.d/services.cfg:ro"
+      - "./init.d:/etc/hadoop/init.d:ro"
+      - "./etc:/etc/hadoop/conf:ro"
+      - "./environment.env:/etc/environment:ro"
+      - "namenode2:/storage"
+
+  # #######################################
+  # datanodes: 1..3
+  #
+  datanode1:
+    build: .
+    hostname: datanode1
+    environment:
+      ZOOKEEPER_ID: 3
+    volumes:
+      - "./srv-datanode.cfg:/etc/supervisord.d/services.cfg:ro"
+      - "./init.d:/etc/hadoop/init.d:ro"
+      - "./etc:/etc/hadoop/conf:ro"
+      - "./environment.env:/etc/environment:ro"
+      - "datanode1:/storage"
+
+  datanode2:
+    build: .
+    hostname: datanode2
+    environment:
+      ZOOKEEPER_ID: 4
+    volumes:
+      - "./srv-datanode.cfg:/etc/supervisord.d/services.cfg:ro"
+      - "./init.d:/etc/hadoop/init.d:ro"
+      - "./etc:/etc/hadoop/conf:ro"
+      - "./environment.env:/etc/environment:ro"
+      - "datanode2:/storage"
+
+  datanode3:
+    build: .
+    hostname: datanode3
+    environment:
+      ZOOKEEPER_ID: 5
+    volumes:
+      - "./srv-datanode.cfg:/etc/supervisord.d/services.cfg:ro"
+      - "./init.d:/etc/hadoop/init.d:ro"
+      - "./etc:/etc/hadoop/conf:ro"
+      - "./environment.env:/etc/environment:ro"
+      - "datanode3:/storage"
+
+volumes:
+  namenode1:
+  namenode2:
+  datanode1:
+  datanode2:
+  datanode3:
