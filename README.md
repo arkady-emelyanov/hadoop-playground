@@ -1,6 +1,6 @@
 # Hadoop Cluster Playground
 
-Yet another Hadoop Cluster playground (`HDP v3.6.4`).
+Yet another Hadoop Cluster playground (`HDP v2.6.4`).
 
 Requirements:
 * Any modern x86_64 Linux distribution
