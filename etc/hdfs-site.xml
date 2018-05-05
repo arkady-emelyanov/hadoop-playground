@@ -39,11 +39,11 @@
     <!-- high availability -->
     <property>
         <name>dfs.namenode.http-address</name>
-        <value>namenode1:50070</value>
+        <value>namenode1.cluster.local:50070</value>
     </property>
     <property>
         <name>dfs.namenode.secondary.http-address</name>
-        <value>namenode2:50070</value>
+        <value>namenode2.cluster.local:50070</value>
     </property>
 
 </configuration>

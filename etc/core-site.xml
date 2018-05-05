@@ -23,7 +23,7 @@
 
     <property>
         <name>fs.default.name</name>
-        <value>hdfs://namenode1:9000/</value>
+        <value>hdfs://namenode1.cluster.local:9000/</value>
     </property>
 
 </configuration>

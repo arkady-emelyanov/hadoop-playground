@@ -1,1 +1,3 @@
 . /etc/environment
+
+export PS1='hadoop > '

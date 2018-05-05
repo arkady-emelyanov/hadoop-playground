@@ -1,3 +1,3 @@
-datanode1
-datanode2
-datanode3
+datanode1.cluster.local
+datanode2.cluster.local
+datanode3.cluster.local

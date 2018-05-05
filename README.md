@@ -10,11 +10,11 @@ Requirements:
 
 Put hosts entries to `/etc/hosts`
 ```
-10.5.0.11 namenode1
-10.5.0.12 namenode2
-10.5.0.21 datanode1
-10.5.0.22 datanode2 
-10.5.0.23 datanode3 
+10.5.0.11 namenode1.cluster.local
+10.5.0.12 namenode2.cluster.local
+10.5.0.21 datanode1.cluster.local
+10.5.0.22 datanode2.cluster.local
+10.5.0.23 datanode3.cluster.local
 ```
 
 Build and start cluster:
@@ -24,17 +24,16 @@ $ docker-compose up
 ```
 
 Web-UI endpoints:
-* Hadoop Cluster UI: http://namenode1:8088/
-* Namenode UI: http://namenode1:50070/
-* Thrift Server UI: http://namenode1:6121/
+* Hadoop Cluster UI: http://namenode1.cluster.local:8088/
+* Namenode UI: http://namenode1.cluster.local:50070/
+* Thrift Server UI: http://namenode1.cluster.local:6121/
 
 API endpoints:
-* Thrift Server: `namenode1:6120`
+* Thrift Server: `namenode1.cluster.local:6120`
 
-Enter bash and switch to `hadoop` user
+Jump into console of `hadoop` user
 ```bash
-$ docker-compose exec namenode1 /bin/bash
-$ su - hadoop
+$ ./console
 ```
 
 Try sample commands (should be executed under `hadoop` user):
@@ -78,8 +77,8 @@ HBase Shell; enter 'help<RETURN>' for list of supported commands.
 Type "exit<RETURN>" to leave the HBase Shell
 Version 1.1.2.2.6.4.0-91, r2a88e694af7238290a5747f963a4fa0079c55bf9, Thu Jan  4 10:42:39 UTC 2018
  
-hbase(main):002:0> status
-1 active master, 1 backup masters, 6 servers, 0 dead, 0.3333 average load
+hbase(main):001:0> status
+1 active master, 1 backup masters, 3 servers, 0 dead, 0.6667 average load
 ```
 
 ## Nodes and Services Layout

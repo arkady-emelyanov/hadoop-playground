@@ -1,4 +1,4 @@
-version: '2'
+version: '3.5'
 services:
   # #######################################
   # primary namenode (namenode1)
@@ -7,6 +7,8 @@ services:
   namenode1:
     build: .
     hostname: namenode1
+    domainname: cluster.local
+    container_name: namenode1
     networks:
       hadoop:
         ipv4_address: 10.5.0.11
@@ -24,6 +26,8 @@ services:
   namenode2:
     build: .
     hostname: namenode2
+    domainname: cluster.local
+    container_name: namenode2
     networks:
       hadoop:
         ipv4_address: 10.5.0.12
@@ -42,6 +46,8 @@ services:
   datanode1:
     build: .
     hostname: datanode1
+    domainname: cluster.local
+    container_name: datanode1
     networks:
       hadoop:
         ipv4_address: 10.5.0.21
@@ -58,6 +64,8 @@ services:
   datanode2:
     build: .
     hostname: datanode2
+    domainname: cluster.local
+    container_name: datanode2
     networks:
       hadoop:
         ipv4_address: 10.5.0.22
@@ -74,6 +82,8 @@ services:
   datanode3:
     build: .
     hostname: datanode3
+    domainname: cluster.local
+    container_name: datanode3
     networks:
       hadoop:
         ipv4_address: 10.5.0.23
@@ -96,8 +106,8 @@ volumes:
 
 networks:
   hadoop:
+    name: cluster.local
     driver: bridge
     ipam:
      config:
        - subnet: 10.5.0.0/16
-         gateway: 10.5.0.1

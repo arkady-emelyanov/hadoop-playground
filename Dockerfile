@@ -69,10 +69,12 @@ COPY entrypoint.sh /entrypoint.sh
 COPY home/bash_profile ${HADOOP_USER_HOME}/.ssh/config
 COPY home/bashrc ${HADOOP_USER_HOME}/.bashrc
 COPY home/bash_profile ${HADOOP_USER_HOME}/.bash_profile
+COPY home/become ${HADOOP_USER_HOME}/.become
 
 # Correct permissions
 RUN chown root:root /entrypoint.sh \
     && chmod 0755 /entrypoint.sh \
+    && chmod 0755 ${HADOOP_USER_HOME}/.become \
     && touch ${HADOOP_USER_HOME}/.hushlogin \
     && chown ${HADOOP_USER}:${HADOOP_USER} -R ${HADOOP_USER_HOME}/.bashrc \
     && chown ${HADOOP_USER}:${HADOOP_USER} -R ${HADOOP_USER_HOME}/.bash_profile

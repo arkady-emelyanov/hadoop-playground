@@ -26,7 +26,8 @@
     </property>
     <property>
         <name>hbase.zookeeper.quorum</name>
-        <value>namenode1,namenode2,datanode1,datanode2,datanode3</value>
+        <!--<value>namenode1.cluster.local,namenode2.cluster.local,datanode1.cluster.local,datanode2.cluster.local,datanode3.cluster.local</value>-->
+        <value>namenode1.cluster.local:2181,namenode2.cluster.local:2181,datanode1.cluster.local:2181,datanode2.cluster.local:2181,datanode3.cluster.local:2181</value>
     </property>
     <property>
         <name>hbase.zookeeper.property.dataDir</name>
@@ -35,6 +36,6 @@
     </property>
     <property>
         <name>hbase.rootdir</name>
-        <value>hdfs://namenode1:9000/hbase</value>
+        <value>hdfs://namenode1.cluster.local:9000/hbase</value>
     </property>
 </configuration>
