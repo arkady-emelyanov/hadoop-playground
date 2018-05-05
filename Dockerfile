@@ -40,7 +40,8 @@ RUN yum -y install \
 # hbase
 RUN yum -y install \
         hbase-master \
-        hbase-regionserver
+        hbase-regionserver \
+        hbase-thrift
 
 # Install mandatory tools
 RUN yum -y install \

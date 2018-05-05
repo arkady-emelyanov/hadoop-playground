@@ -26,6 +26,10 @@ $ docker-compose up
 Web-UI endpoints:
 * Hadoop Cluster UI: http://namenode1:8088/
 * Namenode UI: http://namenode1:50070/
+* Thrift Server UI: http://namenode1:6121/
+
+API endpoints:
+* Thrift Server: `namenode1:6120`
 
 Enter bash and switch to `hadoop` user
 ```bash
@@ -85,6 +89,7 @@ NameNode (primary)
 * zookeeper
 * namenode (hdfs)
 * hbase-master (hbase)
+* hbase-thrift (hbase)
 * resourcemanager (yarn)
 
 NameNode (secondary)
