@@ -1,3 +1,4 @@
 . /etc/environment
 
-export PS1='hadoop > '
+export PS1='hdp:\w$ '
+cd /workspace/scripts

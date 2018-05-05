@@ -19,8 +19,8 @@ services:
       - "./init.d:/etc/hadoop/init.d:ro"
       - "./etc:/etc/hadoop/conf:ro"
       - "./environment.env:/etc/environment:ro"
-      - "./workspace:/workspace"
-      - "./scripts:/scripts:ro"
+      - "./workspace/scripts:/workspace/scripts:ro"
+      - "./workspace/tmp:/workspace/tmp:rw"
       - "namenode1:/storage"
 
   namenode2:
@@ -38,6 +38,7 @@ services:
       - "./init.d:/etc/hadoop/init.d:ro"
       - "./etc:/etc/hadoop/conf:ro"
       - "./environment.env:/etc/environment:ro"
+      - "./workspace/scripts:/workspace/scripts:ro"
       - "namenode2:/storage"
 
   # #######################################
@@ -58,7 +59,7 @@ services:
       - "./init.d:/etc/hadoop/init.d:ro"
       - "./etc:/etc/hadoop/conf:ro"
       - "./environment.env:/etc/environment:ro"
-      - "./scripts:/scripts:ro"
+      - "./workspace/scripts:/workspace/scripts:ro"
       - "datanode1:/storage"
 
   datanode2:
@@ -76,7 +77,7 @@ services:
       - "./init.d:/etc/hadoop/init.d:ro"
       - "./etc:/etc/hadoop/conf:ro"
       - "./environment.env:/etc/environment:ro"
-      - "./scripts:/scripts:ro"
+      - "./workspace/scripts:/workspace/scripts:ro"
       - "datanode2:/storage"
 
   datanode3:
@@ -94,7 +95,7 @@ services:
       - "./init.d:/etc/hadoop/init.d:ro"
       - "./etc:/etc/hadoop/conf:ro"
       - "./environment.env:/etc/environment:ro"
-      - "./scripts:/scripts:ro"
+      - "./workspace/scripts:/workspace/scripts:ro"
       - "datanode3:/storage"
 
 volumes:
