@@ -15,22 +15,32 @@ RUN yum -y install java-1.8.0-openjdk-headless
 RUN curl -s "http://public-repo-1.hortonworks.com/HDP/centos7/2.x/updates/2.6.4.0/hdp.repo" \
     -o /etc/yum.repos.d/hdp.repo
 
-# HDP component installation
+# Hadoop component installation
+# hadoop base
 RUN yum -y install \
+        hadoop \
         hadoop-client \
+        zookeeper
+
+# hdfs
+RUN yum -y install \
         hadoop-hdfs \
         hadoop-hdfs-namenode \
         hadoop-hdfs-secondarynamenode \
         hadoop-hdfs-journalnode \
-        hadoop-hdfs-zkfc \
+        hadoop-hdfs-zkfc
+
+# yarn
+RUN yum -y install \
         hadoop-yarn-nodemanager \
         hadoop-yarn-resourcemanager \
         hadoop-yarn-proxyserver \
-        hadoop-yarn-timelineserver \
-        hadoop-httpfs \
-        hadoop-httpfs-server \
-        hadoop \
-        zookeeper
+        hadoop-yarn-timelineserver
+
+# hbase
+RUN yum -y install \
+        hbase-master \
+        hbase-regionserver
 
 # Install mandatory tools
 RUN yum -y install \

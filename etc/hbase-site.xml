@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 <!--
 
@@ -20,30 +20,21 @@
 
 -->
 <configuration>
-
     <property>
-        <name>dfs.namenode.name.dir</name>
-        <value>file:///storage/dir1,file:///storage/dir2</value>
-    </property>
-
-    <property>
-        <name>dfs.replication</name>
-        <value>3</value>
-    </property>
-
-    <property>
-        <name>dfs.datanode.data.dir</name>
-        <value>file:///storage/dir1,file:///storage/dir2</value>
-    </property>
-
-    <!-- high availability -->
-    <property>
-        <name>dfs.namenode.http-address</name>
-        <value>namenode1:50070</value>
+        <name>hbase.cluster.distributed</name>
+        <value>true</value>
     </property>
     <property>
-        <name>dfs.namenode.secondary.http-address</name>
-        <value>namenode2:50070</value>
+        <name>hbase.zookeeper.quorum</name>
+        <value>namenode1,namenode2,datanode1,datanode2,datanode3</value>
     </property>
-
+    <property>
+        <name>hbase.zookeeper.property.dataDir</name>
+        <value>/storage/zoo</value>
+        <description>Property from ZooKeeper's config zoo.cfg.</description>
+    </property>
+    <property>
+        <name>hbase.rootdir</name>
+        <value>hdfs://namenode1:9000/hbase</value>
+    </property>
 </configuration>
