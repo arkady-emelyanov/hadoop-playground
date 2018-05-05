@@ -1,20 +1,24 @@
 # Hadoop Cluster Playground
 
-Yet another Hadoop Cluster playground (`HDP v2.6.4`).
+Yet another Hadoop Cluster playground (`HDP v2.6.4`)
 
-Requirements:
-* Any modern x86_64 Linux distribution
-* Docker and docker-compose
-* A lot of RAM
+## Requirements
 
+* RAM: 16GB+
+* CPU cores: 8+
+* Any modern x86_64 Linux distro (CentOS 7 in my case)
+* docker >= `18.03.1-ce`
+* docker-compose >= `1.21.0`
 
-Put hosts entries to `/etc/hosts`
+## Let's start
+
+Put entries to `/etc/hosts`
 ```
-10.5.0.11 namenode1.cluster.local
-10.5.0.12 namenode2.cluster.local
-10.5.0.21 datanode1.cluster.local
-10.5.0.22 datanode2.cluster.local
-10.5.0.23 datanode3.cluster.local
+10.5.0.11 namenode1 namenode1.cluster.local
+10.5.0.12 namenode2 namenode2.cluster.local
+10.5.0.21 datanode1 datanode1.cluster.local
+10.5.0.22 datanode2 datanode2.cluster.local
+10.5.0.23 datanode3 datanode3.cluster.local
 ```
 
 Build and start cluster:
@@ -36,15 +40,13 @@ Jump into console of `hadoop` user
 $ ./console
 ```
 
-Try sample commands (should be executed under `hadoop` user):
+Try some sample commands:
 ```bash
 $ hadoop fs -ls /
-$ hdfs fsck /
 $ yarn node -list -all
-$ yarn application -list
 ```
 
-Validate MapReduce (should be executed under `hadoop` user):
+Run bundled MapReduce:
 ```
 $ yarn jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar pi 16 1000
 Number of Maps  = 16
@@ -70,7 +72,7 @@ Job Finished in 32.566 seconds
 Estimated value of Pi is 3.14250000000000000000
 ```
 
-Validate HBase (should be executed under `hadoop` user):
+Check HBase cluster status:
 ```
 $ hbase shell
 HBase Shell; enter 'help<RETURN>' for list of supported commands.
@@ -81,26 +83,35 @@ hbase(main):001:0> status
 1 active master, 1 backup masters, 3 servers, 0 dead, 0.6667 average load
 ```
 
-## Nodes and Services Layout
+## Python examples
+
+* [hdfs, streaming and mapreduce](./workspace/scripts/hdfs_streaming)
+* [hbase, pig and mapreduce](./workspace/scripts/hbase_pig)
+
+
+## Services Layout
+
+> Service order is mandatory, in case of exceptions,
+try to play with sleep values in init.d scripts.
 
 NameNode (primary)
 * ssh
 * zookeeper
 * namenode (hdfs)
+* resourcemanager (yarn)
 * hbase-master (hbase)
 * hbase-thrift (hbase)
-* resourcemanager (yarn)
 
 NameNode (secondary)
 * ssh
 * zookeeper
-* namenode (hdfs)
-* hbase-master (hbase)
+* secondarynamenode (hdfs)
 * resourcemanager (yarn)
+* hbase-master (hbase)
 
 DataNode (1..3)
 * ssh
 * zookeeper
 * datanode (hdfs)
-* hbase-regionserver (hbase)
 * nodemanager (yarn)
+* hbase-regionserver (hbase)

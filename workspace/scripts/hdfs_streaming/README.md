@@ -1,5 +1,15 @@
 # HDFS streaming MapReduce
 
+> hdfs3 library is already present in Docker image
+
+## Useful links
+
+* http://www.michael-noll.com/tutorials/writing-an-hadoop-mapreduce-program-in-python/
+* http://www.tnoda.com/blog/2013-11-23
+* http://hdfs3.readthedocs.io/en/latest/api.html
+
+## Check it out
+
 Enter hadoop console and change directory to test scripts:
 ```
 $ ./console
@@ -18,7 +28,6 @@ komi:/internet/lte/	1
 Generating full data set (approx 3.3GB):
 ```
 $ ./generate.py
-hdp:/workspace/scripts/hdfs$ ./generate.py
 START DATE: 2018-05-05T00:00:00 
 DAYS: 3
 Generating ../../tmp/access_log0
