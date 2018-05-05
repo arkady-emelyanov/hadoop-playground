@@ -1,0 +1,5 @@
+GET /internet/lte/ komi 2018-05-05T03:00:00
+GET /tariffs/just_calls/ chukotka 2018-05-05T03:00:00
+GET /go/sdd komi 2018-05-05T03:00:00
+GET /tariffs/just_calls/ altay 2018-05-05T03:00:00
+GET /go/sdd komi 2018-05-05T03:00:00

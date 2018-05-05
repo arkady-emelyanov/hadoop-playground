@@ -45,14 +45,21 @@ RUN yum -y install \
 
 # Install mandatory tools
 RUN yum -y install \
-        net-tools which gettext \
+        bind-tools net-tools which gettext \
         python-setuptools \
         openssh-clients openssh-server \
         nano vim mc \
-    && easy_install supervisor \
+    && easy_install -q supervisor pip \
     && mkdir -p /etc/supervisord.d \
     && mkdir -p /var/run \
     && mkdir -p /var/log
+
+# Setup development libraries: hdfs, hbase
+RUN yum -y install gcc make python-devel bzip2 \
+    && curl -L https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -o /root/installer.sh \
+    && bash /root/installer.sh -p /usr/local/miniconda -b && rm /root/installer.sh \
+    && /usr/local/miniconda/bin/conda install -y hdfs3 -c conda-forge \
+    && pip install --no-cache happybase
 
 # Setup hadoop user
 RUN useradd -g hadoop ${HADOOP_USER} -m -s /bin/bash \
