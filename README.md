@@ -23,6 +23,10 @@ $ docker-compose build
 $ docker-compose up
 ```
 
+Web-UI endpoints:
+* Hadoop Cluster UI: http://namenode1:8088/
+* Namenode UI: http://namenode1:50070/
+
 Enter bash and switch to `hadoop` user
 ```bash
 $ docker-compose exec namenode1 /bin/bash
