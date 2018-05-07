@@ -1,18 +1,23 @@
-# Hadoop Cluster Playground
+# Hadoop playground
 
-Yet another Hadoop Cluster playground (`HDP v2.6.4`)
+Yet another Hadoop playground (`HDP v2.6.4`)
 
 ## Requirements
 
-* RAM: 16GB+
-* CPU cores: 8+
-* Any modern x86_64 Linux distro (CentOS 7 in my case)
+* OS: `Linux x86_64`
+* RAM: `16GB+`
+* CPU cores: `8+`
+* HDD: best results with `SSD`
 * docker >= `18.03.1-ce`
 * docker-compose >= `1.21.0`
 
-## Let's start
+## Configuration
 
-Put entries to `/etc/hosts`
+Cluster is already pre-configured.
+
+## Booting up
+
+Add following records to `/etc/hosts` on host machine:
 ```
 10.5.0.11 namenode1 namenode1.cluster.local
 10.5.0.12 namenode2 namenode2.cluster.local
@@ -21,58 +26,59 @@ Put entries to `/etc/hosts`
 10.5.0.23 datanode3 datanode3.cluster.local
 ```
 
-Build and start cluster:
+Build and boot up:
 ```bash
 $ docker-compose build
 $ docker-compose up
 ```
 
-Web-UI endpoints:
-* Hadoop Cluster UI: http://namenode1.cluster.local:8088/
-* Namenode UI: http://namenode1.cluster.local:50070/
-* Thrift Server UI: http://namenode1.cluster.local:6121/
+> Depending on CPU/RAM/SSD, cluster initialization could take some time. 
 
-API endpoints:
-* Thrift Server: `namenode1.cluster.local:6120`
 
-Jump into console of `hadoop` user
-```bash
-$ ./console
+## Cluster Layout
+
+| NameNode                     | namenode1.cluster.local  |
+| ---------------------------- | ------------------------ |
+| ssh                          |                          |
+| zookeeper                    |                          |
+| namenode                     | HDFS                     |
+| resourcemanager              | Yarn                     |
+| hbase-master                 | HBase                    |
+| hbase-thrift                 | HBase Thrift API         |
+
+
+| SecondaryNameNode            | namenode2.cluster.local  |
+| ---------------------------- | ------------------------ |
+| ssh                          |                          |
+| zookeeper                    |                          |
+| secondarynamenode            | HDFS                     |
+| resourcemanager              | Yarn                     |
+| hbase-master                 | HBase                    |
+
+
+| DataNodes (1..3)             | datanodeX.cluster.local  |
+| ---------------------------- | ------------------------ |
+| ssh                          |                          |
+| zookeeper                    |                          |
+| datanode                     | HDFS                     |
+| nodemanager                  | Yarn                     |
+| hbase-regionserver           | HBase                    |
+
+
+## Command line interface
+
+There are pre-configured command line console, run `./console` and type
+some Hadoop commands. To reach any other cluster node, use `ssh`.
+
+## Validation
+
+Check HDFS and Yarn reports:
 ```
-
-Try some sample commands:
-```bash
-$ hadoop fs -ls /
+$ hdfs dfsadmin -report
 $ yarn node -list -all
 ```
 
-Run bundled MapReduce:
-```
-$ yarn jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar pi 16 1000
-Number of Maps  = 16
-Samples per Map = 1000
-Wrote input for Map #0
-Wrote input for Map #1
-Wrote input for Map #2
-Wrote input for Map #3
-Wrote input for Map #4
-Wrote input for Map #5
-Wrote input for Map #6
-Wrote input for Map #7
-Wrote input for Map #8
-Wrote input for Map #9
-Wrote input for Map #10
-Wrote input for Map #11
-Wrote input for Map #12
-Wrote input for Map #13
-Wrote input for Map #14
-Wrote input for Map #15
-Starting Job
-Job Finished in 32.566 seconds
-Estimated value of Pi is 3.14250000000000000000
-```
-
-Check HBase cluster status:
+Check HBase status:
 ```
 $ hbase shell
 HBase Shell; enter 'help<RETURN>' for list of supported commands.
@@ -83,35 +89,26 @@ hbase(main):001:0> status
 1 active master, 1 backup masters, 3 servers, 0 dead, 0.6667 average load
 ```
 
+Submit sample MapReduce job:
+```
+$ yarn jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar pi 16 1000
+Number of Maps  = 16
+Samples per Map = 1000
+Wrote input for Map #0
+...
+Wrote input for Map #15
+Starting Job
+Job Finished in 32.566 seconds
+Estimated value of Pi is 3.14250000000000000000
+```
+
+## Useful endpoints
+
+* Hadoop: http://namenode1.cluster.local:8088/
+* Namenode: http://namenode1.cluster.local:50070/
+* Thrift: http://namenode1.cluster.local:6121/
+
 ## Python examples
 
-* [hdfs, streaming and mapreduce](./workspace/scripts/hdfs_streaming)
-* [hbase, pig and mapreduce](./workspace/scripts/hbase_pig)
-
-
-## Services Layout
-
-> Service order is mandatory, in case of exceptions,
-try to play with sleep values in init.d scripts.
-
-NameNode (primary)
-* ssh
-* zookeeper
-* namenode (hdfs)
-* resourcemanager (yarn)
-* hbase-master (hbase)
-* hbase-thrift (hbase)
-
-NameNode (secondary)
-* ssh
-* zookeeper
-* secondarynamenode (hdfs)
-* resourcemanager (yarn)
-* hbase-master (hbase)
-
-DataNode (1..3)
-* ssh
-* zookeeper
-* datanode (hdfs)
-* nodemanager (yarn)
-* hbase-regionserver (hbase)
+* [MapReduce streaming](./workspace/scripts/hdfs_streaming)
+* More coming...
