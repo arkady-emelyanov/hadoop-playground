@@ -70,10 +70,10 @@ RUN useradd -g hadoop ${HADOOP_USER} -m -s /bin/bash \
     && chmod 0700 ${HADOOP_USER_HOME}/.ssh \
     && chmod 0600 ${HADOOP_USER_HOME}/.ssh/*
 
-# Configure hadoop user
+# Configure services
 COPY supervisord.cfg /etc/supervisord.cfg
 COPY entrypoint.sh /entrypoint.sh
-COPY home/bash_profile ${HADOOP_USER_HOME}/.ssh/config
+COPY home/ssh_config ${HADOOP_USER_HOME}/.ssh/config
 COPY home/bashrc ${HADOOP_USER_HOME}/.bashrc
 COPY home/bash_profile ${HADOOP_USER_HOME}/.bash_profile
 COPY home/become ${HADOOP_USER_HOME}/.become
@@ -82,9 +82,10 @@ COPY home/become ${HADOOP_USER_HOME}/.become
 RUN chown root:root /entrypoint.sh \
     && chmod 0755 /entrypoint.sh \
     && chmod 0755 ${HADOOP_USER_HOME}/.become \
+    && chmod 0600 ${HADOOP_USER_HOME}/.ssh/* \
+    && chmod 0700 ${HADOOP_USER_HOME}/.ssh \
     && touch ${HADOOP_USER_HOME}/.hushlogin \
-    && chown ${HADOOP_USER}:${HADOOP_USER} -R ${HADOOP_USER_HOME}/.bashrc \
-    && chown ${HADOOP_USER}:${HADOOP_USER} -R ${HADOOP_USER_HOME}/.bash_profile
+    && chown ${HADOOP_USER}:${HADOOP_USER} -R ${HADOOP_USER_HOME}
 
 VOLUME ["/storage"]
 CMD ["/entrypoint.sh"]

@@ -1,4 +1,6 @@
+#!/bin/bash
+
 . /etc/environment
 
-export PS1='hdp:\w$ '
+export PS1='\h:\W$ '
 cd /workspace/scripts
