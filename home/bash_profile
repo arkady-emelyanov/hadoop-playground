@@ -3,4 +3,4 @@
 . /etc/environment
 
 export PS1='\h:\W$ '
-cd /workspace/scripts
+alias scripts='cd /workspace/scripts'

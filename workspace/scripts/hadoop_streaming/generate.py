@@ -55,19 +55,16 @@ sec = 0
 for day in range(0, config.DAYS):
     dst = "".join([config.LFILE_FMT, str(day)])
     if os.path.exists(dst):
-        print 'Skipping', dst, 'generation, already exists..'
+        print 'Skipping', dst, 'generation, file already exists..'
         continue
 
     print 'Generating', dst
-    fh = open(dst, 'w+')
-    day_sec = 0
-
-    while day_sec < 86400:
-        rps = random.randrange(config.RPS_MIN, config.RPS_MAX, config.RPS_STEP)
-        write_requests(rps, config.DATE_START + sec)
-        day_sec += 1
-
-    sec += day_sec
-    fh.close()
+    with open(dst, 'w+') as fh:
+        day_sec = 0
+        while day_sec < 86400:
+            rps = random.randrange(config.RPS_MIN, config.RPS_MAX, config.RPS_STEP)
+            write_requests(rps, config.DATE_START + day_sec + sec)
+            day_sec += 1
+        sec += day_sec
 
 print 'Done..'

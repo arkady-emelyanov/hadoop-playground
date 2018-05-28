@@ -110,5 +110,5 @@ Estimated value of Pi is 3.14250000000000000000
 
 ## Python examples
 
-* [MapReduce streaming](./workspace/scripts/hdfs_streaming)
+* [MapReduce streaming](workspace/scripts/hadoop_streaming)
 * More coming...

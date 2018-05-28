@@ -33,6 +33,14 @@
         <value>true</value>
     </property>
     <property>
+        <name>yarn.resourcemanager.ha.automatic-failover.enabled</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>yarn.resourcemanager.ha.automatic-failover.embedded</name>
+        <value>true</value>
+    </property>
+    <property>
         <name>yarn.resourcemanager.cluster-id</name>
         <value>yarn-cluster</value>
     </property>
@@ -59,6 +67,49 @@
     <property>
         <name>yarn.resourcemanager.zk-address</name>
         <value>namenode1.cluster.local:2181,namenode2.cluster.local:2181,datanode1.cluster.local:2181,datanode2.cluster.local:2181,datanode3.cluster.local:2181</value>
+    </property>
+
+    <property>
+        <name>yarn.resourcemanager.recovery.enabled</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>yarn.resourcemanager.store.class</name>
+        <value>org.apache.hadoop.yarn.server.resourcemanager.recovery.ZKRMStateStore</value>
+    </property>
+
+    <!--
+        History
+    -->
+    <property>
+        <name>yarn.log-aggregation-enable</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <name>yarn.timeline-service.enabled</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <description>The hostname of the Timeline service web application.</description>
+        <name>yarn.timeline-service.hostname</name>
+        <value>namenode2</value>
+    </property>
+
+    <property>
+        <description>The setting that controls whether yarn system metrics is
+            published on the timeline server or not by RM.</description>
+        <name>yarn.resourcemanager.system-metrics-publisher.enabled</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <description>Indicate to clients whether to query generic application
+            data from timeline history-service or not. If not enabled then application
+            data is queried only from Resource Manager.</description>
+        <name>yarn.timeline-service.generic-application-history.enabled</name>
+        <value>true</value>
     </property>
 
     <!--
